@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+
 import 'package:google_fonts/google_fonts.dart';
-import 'pages/login_page.dart';
+import 'app_module.dart';
 
 void main() {
-  runApp(const MyApp());
+  return runApp(
+    ModularApp(
+      module: AppModule(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -13,15 +20,16 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
+    return MaterialApp.router(
       title: 'My pet',
       theme: ThemeData(
         textTheme: GoogleFonts.latoTextTheme(textTheme).copyWith(
           bodyMedium: GoogleFonts.oswald(textStyle: textTheme.bodyMedium),
         ),
       ),
-      home: const LoginPage(),
+      debugShowCheckedModeBanner: false,
+      routeInformationParser: Modular.routeInformationParser,
+      routerDelegate: Modular.routerDelegate,
     );
   }
 }
